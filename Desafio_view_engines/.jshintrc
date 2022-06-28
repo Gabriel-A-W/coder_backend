@@ -1,0 +1,10 @@
+{
+    "esversion": 11,
+    "curly": true,
+    "eqeqeq": true,
+    "nocomma": true,
+    "undef": true,
+    "unused": true,
+    "browser" : true,
+    "node": true
+}
