@@ -1,21 +1,21 @@
-    <h2>Vista de productos</h2>
-  
-    <div class="py-5 bg-light">
-        <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                {{#each values}}
-                <div class="col">
-                    <div class="card shadow-sm"><img class="bd-placeholder-img card-img-top" src="{{this.thumbnail}}">
-                        <div class="card-body">
-                            <p class="card-text">{{this.title}}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="text-muted">${{this.price}}</p>
-                            </div>
+<h2>Vista de productos</h2>
+
+<div class="py-5 bg-light">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {{#each values}}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img class="bd-placeholder-img card-img-top" src="{{this.thumbnail}}">
+                    <div class="card-body">
+                        <p class="card-text">{{this.title}}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="text-muted">${{this.price}}</p>
                         </div>
                     </div>
                 </div>
-                {{/each}} 
             </div>
+            {{/each}}
         </div>
     </div>
- 
+</div>

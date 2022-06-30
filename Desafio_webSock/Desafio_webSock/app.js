@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const handlebars = require("express-handlebars");
 const http = require("node:http");
+const FileMensajesRepository_1 = require("./chat/repositorios/impl/FileMensajesRepository");
+const ChatServer_1 = require("./chat/servicios/ChatServer");
 const RAMProductosRepository_1 = require("./ecomerce/repositorios/impl/RAMProductosRepository");
 const ProductoListServer_1 = require("./ecomerce/servicios/ProductoListServer");
 const ProductosRouter_1 = require("./routes/ProductosRouter");
@@ -31,6 +33,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const httpServer = http.createServer(app);
 const prodServer = new ProductoListServer_1.ProductoListServer(httpServer, new RAMProductosRepository_1.RAMProductosRepository(datosPrueba), { path: "/productos" });
+const chatServer = new ChatServer_1.ChatServer(httpServer, new FileMensajesRepository_1.FileMensajesRepository("chatdb.json"), { path: "/chat" });
 const engines = {
     hbs() {
         app.engine("hbs", handlebars.engine());

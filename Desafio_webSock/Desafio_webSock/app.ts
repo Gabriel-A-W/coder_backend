@@ -1,6 +1,8 @@
 import * as express from 'express';
 import * as handlebars from 'express-handlebars';
 import * as http from 'node:http';
+import { FileMensajesRepository } from './chat/repositorios/impl/FileMensajesRepository';
+import { ChatServer } from './chat/servicios/ChatServer';
 import { RAMProductosRepository } from './ecomerce/repositorios/impl/RAMProductosRepository';
 import { ProductoListServer } from './ecomerce/servicios/ProductoListServer';
 
@@ -32,8 +34,9 @@ const datosPrueba = [
 const app = express();
 const port = process.env.PORT || 3000;
 const httpServer = http.createServer(app);
-const prodServer = new ProductoListServer(httpServer, new RAMProductosRepository(datosPrueba), {path:"/productos"});
- 
+const prodServer = new ProductoListServer(httpServer, new RAMProductosRepository(datosPrueba), { path: "/productos" });
+const chatServer = new ChatServer(httpServer, new FileMensajesRepository("chatdb.json"), { path: "/chat" });
+
 const engines = {
     hbs() {
         app.engine("hbs", handlebars.engine());

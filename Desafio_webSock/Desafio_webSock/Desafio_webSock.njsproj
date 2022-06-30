@@ -32,7 +32,10 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="chatdb.json" />
+    <Content Include="public\hbs-templates\chatmsgs.hbs" />
     <Content Include="public\hbs-templates\catalogo.hbs" />
+    <Content Include="public\javascripts\chat_cli.js" />
     <Content Include="views\ejs\catalogo.ejs" />
     <Content Include="views\ejs\index.ejs" />
     <Content Include="views\hbs\catalogo.hbs" />
@@ -47,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="chat\entidades\" />
+    <Folder Include="chat\repositorios\" />
+    <Folder Include="chat\repositorios\impl\" />
     <Folder Include="chat\servicios\" />
     <Folder Include="ecomerce\entidades\" />
     <Folder Include="ecomerce\" />
@@ -67,9 +72,12 @@
     <Folder Include="views\pug\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="chat\entidades\ChatUser.ts">
+    <TypeScriptCompile Include="chat\entidades\IChatUser.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="chat\entidades\IMensaje.ts" />
+    <TypeScriptCompile Include="chat\repositorios\IMensajesRepository.ts" />
+    <TypeScriptCompile Include="chat\repositorios\impl\FileMensajesRepository.ts" />
     <TypeScriptCompile Include="chat\servicios\ChatServer.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
