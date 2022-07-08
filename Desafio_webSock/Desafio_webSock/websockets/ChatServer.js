@@ -32,6 +32,9 @@ class ChatServer {
     }
     onClientRequestAddHandler(cliente, obj) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (!obj.email) {
+                return;
+            }
             obj.fecha = new Date();
             const pn = yield this._repo.add(obj);
             this._sockServer.emit(EVT_SVR_DO_PUSH, pn);

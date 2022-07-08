@@ -1,6 +1,6 @@
 import express = require('express');
-import { RAMProductosRepository } from '../ecomerce/repositorios/impl/RAMProductosRepository';
-import { IProductosRepository } from '../ecomerce/repositorios/IProductosRepository';
+import { RAMProductosRepository } from '../ecommerce/repositorios/impl/RAMProductosRepository';
+import { IProductosRepository } from '../ecommerce/repositorios/IProductosRepository';
 const router = express.Router();
 
 const contenedor: IProductosRepository = new RAMProductosRepository([

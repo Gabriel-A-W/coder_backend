@@ -27,7 +27,7 @@ export class RAMProductosRepository implements IProductosRepository
         return this._data;
     }
 
-    async add(p: IProducto): Promise<IProducto>
+    async add(p: Partial<IProducto>): Promise<IProducto>
     {
         const otroP: IProducto = Producto.Copy(p);
         otroP.id = await this.getNextId();

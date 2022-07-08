@@ -1,75 +1,70 @@
 import * as express from 'express';
 import * as handlebars from 'express-handlebars';
+import knex, { Knex } from 'knex';
 import * as http from 'node:http';
-import { FileMensajesRepository } from './chat/repositorios/impl/FileMensajesRepository';
-import { ChatServer } from './chat/servicios/ChatServer';
-import { RAMProductosRepository } from './ecomerce/repositorios/impl/RAMProductosRepository';
-import { ProductoListServer } from './ecomerce/servicios/ProductoListServer';
-
 import productosRouter from './routes/ProductosRouter';
 import vistas from './routes/Vistas';
 
-const datosPrueba = [
-    {
-        "title": "Escuadra",
-        "price": 123.45,
-        "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
-        "id": 1
-    },
-    {
-        "title": "Calculadora",
-        "price": 234.56,
-        "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
-        "id": 2
-    },
-    {
-        "title": "Globo Terráqueo",
-        "price": 345.67,
-        "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png",
-        "id": 3
-    }
-];
+import { ChatKnexDbContext } from './chat/knexdb/ChatKnexDbContext';
+import { IMensajesRepository } from './chat/repositorios/IMensajesRepository';
+import { KnexMensajesRepository } from './chat/repositorios/impl/KnexMensajesRepository';
+import { EcommerceKnexDbContext } from './ecommerce/knexdb/EcommerceKnexDbSetuper';
+import { KnexProductosRepository } from './ecommerce/repositorios/impl/KnexProductosRepository';
+import { IProductosRepository } from './ecommerce/repositorios/IProductosRepository';
+import { ProductoListServer } from './websockets/ProductoListServer';
+import { ChatServer } from './websockets/ChatServer';
 
+const Main = async () =>
+{
+    const app = express();
+    const port = process.env.PORT || 3000;
+    const httpServer = http.createServer(app);
 
-const app = express();
-const port = process.env.PORT || 3000;
-const httpServer = http.createServer(app);
-const prodServer = new ProductoListServer(httpServer, new RAMProductosRepository(datosPrueba), { path: "/productos" });
-const chatServer = new ChatServer(httpServer, new FileMensajesRepository("chatdb.json"), { path: "/chat" });
+    const ecommerceDbConfigs: Knex.Config = {
+        client: 'sqlite3',  
+        useNullAsDefault: true,
+        connection: {
+            filename: "productosdb.sqlite"
+        }
+    };
 
-const engines = {
-    hbs() {
-        app.engine("hbs", handlebars.engine());
-        app.set("view engine", "hbs");
-    },
-    pug() {
-        app.set("view engine", "pug");
-    },
-    ejs() {
-        app.set("view engine", "ejs");
-    }
-};
+    const chatDbConfigs: Knex.Config = {
+        client: 'mysql',
+        connection: {
+            host: '127.0.0.1',
+            port: 3306,
+            user: '',
+            password: '',
+            database: 'chatdb'
+        }
+    };
 
-//Seteo del view engine
-if (process.argv.length < 3) {
-    throw new Error("Elija view engine pug|hbs|ejs");
+    const ecommerceDBConn = new EcommerceKnexDbContext(knex(ecommerceDbConfigs));
+    const chatDBConn = new ChatKnexDbContext(knex(chatDbConfigs));
+   
+    await ecommerceDBConn.setup();
+    await chatDBConn.setup();
+
+    const prodRepo: IProductosRepository = new KnexProductosRepository(ecommerceDBConn);
+    const chatRepo: IMensajesRepository = new KnexMensajesRepository(chatDBConn);
+
+    const prodServer = new ProductoListServer(httpServer, prodRepo, { path: "/productos" });
+    const chatServer = new ChatServer(httpServer, chatRepo, { path: "/chat" });
+
+    app.engine("hbs", handlebars.engine());
+    app.set("view engine", "hbs");
+    app.set('views', `./views/hbs`);
+
+    app.use(express.static('public'))
+    app.use("/api/productos", productosRouter);
+    app.use("/", vistas);
+
+    httpServer.listen(port, () => {
+        console.log(`Puerto: ${port}`);
+    });
+
 }
 
-try {
-    const viewEngine = process.argv[2];
-    engines[viewEngine]();
-    app.set('views', `./views/${viewEngine}`);
-}
-catch (err) {
-    throw new Error("Elija view engine pug|hbs|ejs");
-}
-
-app.use(express.static('public'))
-app.use("/api/productos", productosRouter);
-app.use("/", vistas);
 
 
-
-httpServer.listen(port, () => {
-    console.log(`Puerto: ${port}`);
-});
+Main();

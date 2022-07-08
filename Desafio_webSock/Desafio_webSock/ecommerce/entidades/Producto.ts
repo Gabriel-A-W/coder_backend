@@ -11,7 +11,7 @@ export class Producto implements IProducto
     {
     }
 
-    static Copy(otro: IProducto): Producto
+    static Copy(otro: Partial<IProducto>): Producto
     {
         const p: Producto = new Producto();
         p.id = otro.id;

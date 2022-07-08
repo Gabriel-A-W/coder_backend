@@ -1,7 +1,7 @@
 import * as http from 'node:http';
 import { Server as SocketIOServer, ServerOptions, Socket } from 'socket.io'
-import { IMensaje } from '../entidades/IMensaje';
-import { IMensajesRepository } from '../repositorios/IMensajesRepository';
+import { IMensaje } from '../chat/entidades/IMensaje';
+import { IMensajesRepository } from '../chat/repositorios/IMensajesRepository';
 
 const EVT_CLI_CONN : string = "connection";
 const EVT_CLI_RQ_ADD: string = "add";

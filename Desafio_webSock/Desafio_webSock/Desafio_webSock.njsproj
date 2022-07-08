@@ -50,15 +50,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="chat\entidades\" />
+    <Folder Include="chat\knexdb\" />
     <Folder Include="chat\repositorios\" />
     <Folder Include="chat\repositorios\impl\" />
-    <Folder Include="chat\servicios\" />
-    <Folder Include="ecomerce\entidades\" />
-    <Folder Include="ecomerce\" />
-    <Folder Include="ecomerce\servicios\" />
-    <Folder Include="ecomerce\repositorios\" />
+    <Folder Include="ecommerce\entidades\" />
+    <Folder Include="ecommerce\" />
+    <Folder Include="ecommerce\repositorios\" />
     <Folder Include="chat\" />
-    <Folder Include="ecomerce\repositorios\impl\" />
+    <Folder Include="ecommerce\repositorios\impl\" />
+    <Folder Include="ecommerce\knexdb\" />
+    <Folder Include="websockets\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascripts\" />
@@ -76,30 +77,32 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="chat\entidades\IMensaje.ts" />
+    <TypeScriptCompile Include="chat\entidades\Mensaje.ts" />
+    <TypeScriptCompile Include="chat\knexdb\ChatKnexDbContext.ts" />
     <TypeScriptCompile Include="chat\repositorios\IMensajesRepository.ts" />
-    <TypeScriptCompile Include="chat\repositorios\impl\FileMensajesRepository.ts" />
-    <TypeScriptCompile Include="chat\servicios\ChatServer.ts">
+    <TypeScriptCompile Include="chat\repositorios\impl\KnexMensajesRepository.ts" />
+    <TypeScriptCompile Include="ecommerce\knexdb\EcommerceKnexDbSetuper.ts" />
+    <TypeScriptCompile Include="KnexDbContext.ts" />
+    <TypeScriptCompile Include="websockets\ChatServer.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="ecomerce\entidades\Carrito.ts">
+    <TypeScriptCompile Include="ecommerce\entidades\IProducto.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="ecomerce\entidades\IProducto.ts">
+    <TypeScriptCompile Include="ecommerce\entidades\Producto.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="ecomerce\entidades\Producto.ts">
+    <TypeScriptCompile Include="ecommerce\repositorios\impl\FileProductosRepository.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="ecomerce\repositorios\impl\FileProductosRepository.ts">
+    <TypeScriptCompile Include="ecommerce\repositorios\impl\RAMProductosRepository.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="ecomerce\repositorios\impl\RAMProductosRepository.ts">
+    <TypeScriptCompile Include="ecommerce\repositorios\impl\KnexProductosRepository.ts" />
+    <TypeScriptCompile Include="ecommerce\repositorios\IProductosRepository.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="ecomerce\repositorios\IProductosRepository.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="ecomerce\servicios\ProductoListServer.ts">
+    <TypeScriptCompile Include="websockets\ProductoListServer.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="public\javascripts\ecommerce_cli.js">

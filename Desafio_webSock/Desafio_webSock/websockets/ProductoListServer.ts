@@ -1,7 +1,7 @@
 import * as http from 'node:http';
 import { Server as SocketIOServer, ServerOptions, Socket } from 'socket.io'
-import { IProducto } from '../entidades/IProducto';
-import { IProductosRepository } from '../repositorios/IProductosRepository';
+import { IProducto } from '../ecommerce/entidades/IProducto';
+import { IProductosRepository } from '../ecommerce/repositorios/IProductosRepository';
 
 //Eventos Cliente -> Servidor
 const EVT_CLI_CONN: string = "connection";

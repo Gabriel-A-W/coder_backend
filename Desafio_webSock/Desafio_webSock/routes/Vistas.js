@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
-const RAMProductosRepository_1 = require("../ecomerce/repositorios/impl/RAMProductosRepository");
+const RAMProductosRepository_1 = require("../ecommerce/repositorios/impl/RAMProductosRepository");
 const router = express.Router();
 const contenedor = new RAMProductosRepository_1.RAMProductosRepository([
     {

@@ -59,7 +59,7 @@ export class FileProductosRepository implements IProductosRepository
         return this._data;
     }
 
-    async add(p: IProducto): Promise<IProducto>
+    async add(p: Partial<IProducto>): Promise<IProducto>
     {
         let otroP: IProducto = Producto.Copy(p);
 
