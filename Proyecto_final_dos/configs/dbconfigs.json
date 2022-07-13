@@ -1,0 +1,4 @@
+{
+    "db": "firestore",
+    "uri": "firebaseconfigs.json"
+}

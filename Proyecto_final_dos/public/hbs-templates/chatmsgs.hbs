@@ -1,0 +1,17 @@
+<div class="py-5 bg-light">
+    <div class="container overflow-auto" style="max-width: 90vw; max-height: 30vw">
+        <ul class="list-group list-group-flush ">
+            {{#each values}}
+            <li class="list-group-item">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.email}}</h5>
+                        <p class="card-text">{{this.texto}}</p>
+                        <span>{{this.fecha}}</span>
+                    </div>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</div>
