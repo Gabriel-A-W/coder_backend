@@ -1,4 +1,5 @@
 import express = require('express');
+import { FakerProductosRepository } from '../ecommerce/repositorios/impl/FakerProductosRepository';
 import { RAMProductosRepository } from '../ecommerce/repositorios/impl/RAMProductosRepository';
 import { IProductosRepository } from '../ecommerce/repositorios/IProductosRepository';
 const router = express.Router();
@@ -40,6 +41,12 @@ router.post("/", async (req, res) => {
 
 router.get("/productos", async (req, res) => {
     res.render("catalogo", { values: await contenedor.getAll() });
+});
+
+router.get("/api/productos-test", async (req, res) => {
+    const repo = new FakerProductosRepository(5);
+    res.render("prodtest", { values: await repo.getAll() });
+
 });
 
 export default router;

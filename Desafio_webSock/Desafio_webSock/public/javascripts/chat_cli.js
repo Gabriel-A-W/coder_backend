@@ -1,5 +1,5 @@
 import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
-
+ 
 
 //Eventos Cliente -> Servidor
 const EVT_CLI_CONN = "connect";
@@ -8,6 +8,29 @@ const EVT_CLI_RQ_ADD = "add";
 //Eventos Server -> Cliente
 const EVT_SVR_DO_PUSH = "push";
 const EVT_SVR_DO_INIT = "init";
+ 
+
+class ChatNormalizr {
+
+    static _autorSchema = new normalizr.schema.Entity("autores", {}, { idAttribute: "email" });
+    static _mensajeSchema = new normalizr.schema.Entity("mensajes", {
+        autor: ChatNormalizr._autorSchema
+    });
+
+    static _msjArraySchema = new normalizr.schema.Entity("chat", { mensajes: [ChatNormalizr._mensajeSchema] })
+
+
+    constructor() {
+        throw new Error("ChatNormalizr es static")
+    }
+
+    static desnormalizar(msjs) {
+      
+
+        return normalizr.denormalize(msjs.result, ChatNormalizr._msjArraySchema, msjs.entities);
+    }
+}
+
 
 
 async function main()
@@ -17,11 +40,11 @@ async function main()
     const template = Handlebars.compile(templateText);
 
     const socketClient = io({ path: "/chat" });
-    const productos = [];
+    let chat = {mensajes:[]};
 
     const refrescar = (p)=>
     {
-        document.getElementById("chatContainer").innerHTML = template({ values: p });
+        document.getElementById("chatContainer").innerHTML = template({ values: p.mensajes });
     }
 
     // client-side
@@ -30,18 +53,26 @@ async function main()
     });
 
     socketClient.on(EVT_SVR_DO_INIT, (data) => {
-        productos.push(...data);
-        refrescar(productos);
+        
+        chat = ChatNormalizr.desnormalizar(data);
+        refrescar(chat);
     });
 
     socketClient.on(EVT_SVR_DO_PUSH, (data) => {
-        productos.push(data);
-        refrescar(productos);
+        chat.mensajes.push(data);
+        refrescar(chat);
     });
 
     document.getElementById("btnMsgEnv").addEventListener("click", () => {
         const p = {
-            email: document.getElementById("userEmail").value,
+            autor: {
+                email: document.getElementById("userEmail").value,
+                nombre: document.getElementById("userNombre").value,
+                apellido:  document.getElementById("userApellido").value,
+                edad:      document.getElementById("userEdad"    ).value,
+                alias:     document.getElementById("userAlias"   ).value,
+                avatar:    document.getElementById("userAvatar"  ).value
+            },
             texto: document.getElementById("msgBox").value
         };
 

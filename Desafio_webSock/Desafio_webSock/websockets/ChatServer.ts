@@ -1,6 +1,7 @@
 import * as http from 'node:http';
 import { Server as SocketIOServer, ServerOptions, Socket } from 'socket.io'
 import { IMensaje } from '../chat/entidades/IMensaje';
+import { ChatNormalizr } from '../chat/normalizador/ChatNormalizr';
 import { IMensajesRepository } from '../chat/repositorios/IMensajesRepository';
 
 const EVT_CLI_CONN : string = "connection";
@@ -27,12 +28,14 @@ export class ChatServer
             this.onClientRequestAddHandler(cliente, obj);
         });
 
-        cliente.emit(EVT_SVR_DO_INIT, await this._repo.getAll());
+        const msjs = ChatNormalizr.normalizar(await this._repo.getAll());
+        console.log(msjs);
+        cliente.emit(EVT_SVR_DO_INIT, msjs);
     }
 
     private async onClientRequestAddHandler(cliente: Socket, obj: IMensaje) : Promise<void> {
 
-        if (!obj.email)
+        if (!obj.autor)
         {
             return;
         }

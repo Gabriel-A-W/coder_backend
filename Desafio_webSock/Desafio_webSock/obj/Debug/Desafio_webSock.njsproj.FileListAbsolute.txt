@@ -1,6 +1,3 @@
 C:\Users\U632510\source\repos\Desafio_webSock\Desafio_webSock\obj\Debug\Desafio_webSock.njsproj.AssemblyReference.cache
 C:\Users\U632510\source\repos\Desafio_webSock\Desafio_webSock\obj\Debug\Desafio_webSock.njsproj.CoreCompileInputs.cache
 C:\Users\U632510\source\repos\Desafio_webSock\Desafio_webSock\bin\Microsoft.NodejsTools.WebRole.dll
-C:\Users\U632510\Documents\git_repos\coder_bakend\Desafio_webSock\Desafio_webSock\obj\Debug\Desafio_webSock.njsproj.AssemblyReference.cache
-C:\Users\U632510\Documents\git_repos\coder_bakend\Desafio_webSock\Desafio_webSock\obj\Debug\Desafio_webSock.njsproj.CoreCompileInputs.cache
-C:\Users\U632510\Documents\git_repos\coder_bakend\Desafio_webSock\Desafio_webSock\bin\Microsoft.NodejsTools.WebRole.dll

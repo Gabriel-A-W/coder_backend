@@ -1,0 +1,11 @@
+<table class="table">
+    <thead>
+        <tr><th>id</th><th>title</th><th>price</th><th>thumbnail</th> </tr>
+    </thead>
+    <tbody>
+        {{#each values}}
+        <tr><td>{{this.id}}</td><td>{{this.title}}</td><td>{{this.price}}</td><td>{{this.thumbnail}}</td></tr>
+        {{/each}}
+    </tbody>
+
+</table>

@@ -1,7 +1,9 @@
+import { IAutor } from "./IAutor";
+
 export interface IMensaje
 {
     id: number;
     fecha: Date;
-    email: string;    
+    autor: IAutor;    
     texto: string;
 }

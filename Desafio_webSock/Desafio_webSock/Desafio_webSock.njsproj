@@ -33,6 +33,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="chatdb.json" />
+    <Content Include="chat\mongodb\ChatMongoDBContext.ts">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\hbs-templates\chatmsgs.hbs" />
     <Content Include="public\hbs-templates\catalogo.hbs" />
     <Content Include="public\javascripts\chat_cli.js" />
@@ -41,6 +44,7 @@
     <Content Include="views\hbs\catalogo.hbs" />
     <Content Include="views\hbs\index.hbs" />
     <Content Include="views\hbs\layouts\main.handlebars" />
+    <Content Include="views\hbs\prodtest.hbs" />
     <Content Include="views\pug\catalogo.pug" />
     <Content Include="views\pug\index.pug" />
     <None Include="app.ts" />
@@ -50,7 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="chat\entidades\" />
-    <Folder Include="chat\knexdb\" />
+    <Folder Include="chat\mongodb\" />
+    <Folder Include="chat\mongodb\modelos\" />
+    <Folder Include="chat\mongodb\schemas\" />
+    <Folder Include="chat\normalizador\" />
     <Folder Include="chat\repositorios\" />
     <Folder Include="chat\repositorios\impl\" />
     <Folder Include="ecommerce\entidades\" />
@@ -73,15 +80,19 @@
     <Folder Include="views\pug\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="chat\entidades\IChatUser.ts">
+    <TypeScriptCompile Include="chat\entidades\IAutor.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="chat\entidades\IMensaje.ts" />
     <TypeScriptCompile Include="chat\entidades\Mensaje.ts" />
-    <TypeScriptCompile Include="chat\knexdb\ChatKnexDbContext.ts" />
+    <TypeScriptCompile Include="chat\mongodb\modelos\MensajesMongoModel.ts" />
+    <TypeScriptCompile Include="chat\mongodb\schemas\AutorMongoSchema.ts" />
+    <TypeScriptCompile Include="chat\mongodb\schemas\MensajeMongoSchema.ts" />
+    <TypeScriptCompile Include="chat\normalizador\ChatNormalizr.ts" />
     <TypeScriptCompile Include="chat\repositorios\IMensajesRepository.ts" />
-    <TypeScriptCompile Include="chat\repositorios\impl\KnexMensajesRepository.ts" />
+    <TypeScriptCompile Include="chat\repositorios\impl\MongoMensajesRepository.ts" />
     <TypeScriptCompile Include="ecommerce\knexdb\EcommerceKnexDbSetuper.ts" />
+    <TypeScriptCompile Include="ecommerce\repositorios\impl\FakerProductosRepository.ts" />
     <TypeScriptCompile Include="KnexDbContext.ts" />
     <TypeScriptCompile Include="websockets\ChatServer.ts">
       <SubType>Code</SubType>
