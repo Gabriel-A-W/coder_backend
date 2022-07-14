@@ -43,8 +43,7 @@ async function run()
     app.use("/api/productos", adminCheckMiddleware, ProductosRouterBuilder(db.productos));
     app.use("/api/carrito", CarritosRouterBuilder(db.carritos, db.productos));
 
-    
-    db.productos.add(EcommerceDb._EsquemaProductos.create())
+     
     httpServer.listen(port, () => {
         console.log(`Puerto: ${port}`);
     });
