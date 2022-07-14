@@ -29,12 +29,12 @@ export class FirestoreEcommerceDb extends EcommerceDb
 
     protected crearCarritos(): IRepository<ICarrito> 
     {
-        return new FirestoreRepository<ICarrito>(this._con.collection(FirestoreEcommerceDb.COLL_CARRITOS), Carrito);
+        return new FirestoreRepository<ICarrito>(this._con.collection(FirestoreEcommerceDb.COLL_CARRITOS));
     }
 
     protected crearProductos(): IRepository<IProducto> 
     {
-        return new FirestoreRepository<IProducto>(this._con.collection(FirestoreEcommerceDb.COLL_PRODUCTOS), Producto);
+        return new FirestoreRepository<IProducto>(this._con.collection(FirestoreEcommerceDb.COLL_PRODUCTOS));
     }
 
 }

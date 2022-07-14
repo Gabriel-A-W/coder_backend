@@ -8,12 +8,12 @@ export  class FirestoreRepository<TRow extends IRecord> implements IRepository<T
 {
 
     protected readonly _modelo : firestore.CollectionReference;
-    private _ctor: (new ()=> TRow) = null;
+ 
 
-    constructor(collection : firestore.CollectionReference, ctor: (new ()=> TRow) = null)
+    constructor(collection : firestore.CollectionReference)
     {
         this._modelo = collection; 
-        this._ctor = ctor;
+        
     }
 
     async getNextId()
@@ -38,10 +38,11 @@ export  class FirestoreRepository<TRow extends IRecord> implements IRepository<T
 
     async add(p: Partial<TRow>): Promise<TRow> 
     {
-        let pcopia: TRow = Object.assign((this._ctor)? {... new this._ctor()}: {}, p) as TRow;
+        
+        let pcopia: TRow = Object.assign({}, p) as TRow;
          
         pcopia.id = await this.getNextId();
-    
+        console.log(pcopia);
         let nuevo = this._modelo.doc(`${pcopia.id}`);
         await nuevo.create(structuredClone(pcopia));
 

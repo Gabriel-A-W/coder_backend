@@ -20,12 +20,12 @@ export class FileEcommerceDb extends EcommerceDb
 
     protected crearCarritos(): IRepository<ICarrito> 
     {
-        return new FileRepository<ICarrito>(path.join(process.cwd(), this._dirPath, "carritosdb.json"), Carrito);
+        return new FileRepository<ICarrito>(path.join(process.cwd(), this._dirPath, "carritosdb.json"));
     }
 
     protected crearProductos(): IRepository<IProducto> 
     {
-        return  new FileRepository<IProducto>(path.join(process.cwd(), this._dirPath, "productosdb.json"), Producto);
+        return  new FileRepository<IProducto>(path.join(process.cwd(), this._dirPath, "productosdb.json"));
     }
 
 }

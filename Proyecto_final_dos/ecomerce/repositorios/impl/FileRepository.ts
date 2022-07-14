@@ -11,13 +11,12 @@ export class FileRepository<TRow extends IRecord > implements IRepository<TRow>
     private _fpath: string;
     private _esPrimeraVez: boolean = true;
     private _data: Map<number, TRow> = new Map<number, TRow>();
-    private _ctor: (new ()=> TRow) = null;
+  
 
 
-    constructor(fpath: string, ctor: (new ()=> TRow) = null)
+    constructor(fpath: string)
     {
-        this._fpath = fpath;
-        this._ctor = ctor;
+        this._fpath = fpath; 
     }
 
     async getAll(): Promise<TRow[]> {
@@ -70,9 +69,9 @@ export class FileRepository<TRow extends IRecord > implements IRepository<TRow>
     }
 
 
-    async add(p: Partial<TRow>): Promise<TRow>
+    async add(o: Partial<TRow>): Promise<TRow>
     {
-        let pcopia: TRow = this._ctor? new this._ctor() : Object.assign({}, p) as TRow;
+        let pcopia: TRow = Object.assign({}, o) as TRow;
         pcopia.id = await this.getNextId();
 
         (await this._getAll()).set(pcopia.id, pcopia);

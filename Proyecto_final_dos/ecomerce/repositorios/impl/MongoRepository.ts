@@ -28,9 +28,9 @@ export class MongoRepository<TRow extends IRecord> implements IRepository<TRow>
         return await this._modelo.find();
     }
 
-    async add(p: Partial<TRow>): Promise<TRow>
+    async add(o: Partial<TRow>): Promise<TRow>
     {
-        let otroP: Partial<TRow> = Object.assign({}, p);
+        let otroP: Partial<TRow> = Object.assign({}, o);
         otroP.id = await this.getNextId();
         return await this._modelo.create(otroP); 
     }

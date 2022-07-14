@@ -15,7 +15,7 @@ export const CarritosRouterBuilder = (carritosRepo: IRepository<ICarrito>, produ
     CarritosRouter.use(express.urlencoded({ extended: true }));
 
     CarritosRouter.post("/", async (req, res) => {
-        const o: Partial<ICarrito> = {};
+        const o: Partial<ICarrito> = {timestamp: Date.now()};
         res.json(await carritosRepo.add(o));
     });
 

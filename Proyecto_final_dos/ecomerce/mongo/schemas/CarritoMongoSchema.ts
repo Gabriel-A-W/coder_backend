@@ -4,6 +4,6 @@ import { ProductoMongoSchema } from './ProductoMongoSchema';
 
 export  const CarritoMongoSchema =  new  mongodb.Schema<ICarrito>({
     id: {type: Number, index: true}, 
-    timestamp: Number,
+    timestamp: Number, 
     productos: [ProductoMongoSchema],
   });
