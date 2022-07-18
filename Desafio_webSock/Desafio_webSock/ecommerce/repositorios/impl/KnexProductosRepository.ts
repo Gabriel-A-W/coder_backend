@@ -1,7 +1,7 @@
 import { Knex } from 'knex'
 import { IProducto } from '../../entidades/IProducto';
 import { Producto } from '../../entidades/Producto';
-import { EcommerceKnexDbContext } from '../../knexdb/EcommerceKnexDbSetuper';
+import { EcommerceKnexDbContext } from '../../knexdb/EcommerceKnexKnexDbContext';
 import { IProductosRepository } from '../IProductosRepository';
 
 

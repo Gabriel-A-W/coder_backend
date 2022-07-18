@@ -32,21 +32,26 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="chatdb.json" />
     <Content Include="chat\mongodb\ChatMongoDBContext.ts">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\assets\brand\bootstrap-logo-white.svg" />
+    <Content Include="public\assets\brand\bootstrap-logo.svg" />
+    <Content Include="public\assets\dist\css\bootstrap.min.css" />
+    <Content Include="public\assets\dist\css\bootstrap.min.css.map" />
+    <Content Include="public\assets\dist\css\bootstrap.rtl.min.css" />
+    <Content Include="public\assets\dist\css\bootstrap.rtl.min.css.map" />
+    <Content Include="public\assets\dist\js\bootstrap.bundle.min.js" />
+    <Content Include="public\assets\dist\js\bootstrap.bundle.min.js.map" />
     <Content Include="public\hbs-templates\chatmsgs.hbs" />
     <Content Include="public\hbs-templates\catalogo.hbs" />
     <Content Include="public\javascripts\chat_cli.js" />
-    <Content Include="views\ejs\catalogo.ejs" />
-    <Content Include="views\ejs\index.ejs" />
+    <Content Include="public\stylesheets\signin.css" />
     <Content Include="views\hbs\catalogo.hbs" />
     <Content Include="views\hbs\index.hbs" />
     <Content Include="views\hbs\layouts\main.handlebars" />
+    <Content Include="views\hbs\login.hbs" />
     <Content Include="views\hbs\prodtest.hbs" />
-    <Content Include="views\pug\catalogo.pug" />
-    <Content Include="views\pug\index.pug" />
     <None Include="app.ts" />
     <Content Include="tsconfig.json" />
     <Content Include="package.json" />
@@ -66,6 +71,14 @@
     <Folder Include="chat\" />
     <Folder Include="ecommerce\repositorios\impl\" />
     <Folder Include="ecommerce\knexdb\" />
+    <Folder Include="knexdb\" />
+    <Folder Include="public\assets\" />
+    <Folder Include="public\assets\brand\" />
+    <Folder Include="public\assets\dist\" />
+    <Folder Include="public\assets\dist\css\" />
+    <Folder Include="public\assets\dist\js\" />
+    <Folder Include="sessions\" />
+    <Folder Include="sessions\types\" />
     <Folder Include="websockets\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
@@ -74,10 +87,8 @@
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
     <Folder Include="views\" />
-    <Folder Include="views\ejs\" />
     <Folder Include="views\hbs\" />
     <Folder Include="views\hbs\layouts\" />
-    <Folder Include="views\pug\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="chat\entidades\IAutor.ts">
@@ -91,9 +102,13 @@
     <TypeScriptCompile Include="chat\normalizador\ChatNormalizr.ts" />
     <TypeScriptCompile Include="chat\repositorios\IMensajesRepository.ts" />
     <TypeScriptCompile Include="chat\repositorios\impl\MongoMensajesRepository.ts" />
-    <TypeScriptCompile Include="ecommerce\knexdb\EcommerceKnexDbSetuper.ts" />
+    <TypeScriptCompile Include="ecommerce\knexdb\EcommerceKnexKnexDbContext.ts" />
     <TypeScriptCompile Include="ecommerce\repositorios\impl\FakerProductosRepository.ts" />
-    <TypeScriptCompile Include="KnexDbContext.ts" />
+    <TypeScriptCompile Include="knexdb\KnexDbContext.ts" />
+    <TypeScriptCompile Include="routes\UsersRouter.ts" />
+    <TypeScriptCompile Include="sessions\SessionManager.ts" />
+    <TypeScriptCompile Include="sessions\types\SessionCheat.ts" />
+    <TypeScriptCompile Include="sessions\IUserData.ts" />
     <TypeScriptCompile Include="websockets\ChatServer.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -122,7 +137,7 @@
     <TypeScriptCompile Include="routes\ProductosRouter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="routes\Vistas.ts">
+    <TypeScriptCompile Include="routes\VistasRouter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
   </ItemGroup>

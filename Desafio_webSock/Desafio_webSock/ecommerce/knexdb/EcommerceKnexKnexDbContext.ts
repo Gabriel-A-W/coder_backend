@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import { KnexDbContext } from "../../KnexDbContext";
+import { KnexDbContext } from "../../knexdb/KnexDbContext";
 import { IProducto } from "../entidades/IProducto";
  
 
