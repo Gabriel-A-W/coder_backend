@@ -35,6 +35,7 @@
     <Content Include="chat\mongodb\ChatMongoDBContext.ts">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Config.json" />
     <Content Include="public\assets\brand\bootstrap-logo-white.svg" />
     <Content Include="public\assets\brand\bootstrap-logo.svg" />
     <Content Include="public\assets\dist\css\bootstrap.min.css" />
@@ -47,11 +48,13 @@
     <Content Include="public\hbs-templates\catalogo.hbs" />
     <Content Include="public\javascripts\chat_cli.js" />
     <Content Include="public\stylesheets\signin.css" />
+    <Content Include="sessions\mongodb\modelos\UserMongoModel.ts" />
     <Content Include="views\hbs\catalogo.hbs" />
     <Content Include="views\hbs\index.hbs" />
     <Content Include="views\hbs\layouts\main.handlebars" />
     <Content Include="views\hbs\login.hbs" />
     <Content Include="views\hbs\prodtest.hbs" />
+    <Content Include="views\hbs\register.hbs" />
     <None Include="app.ts" />
     <Content Include="tsconfig.json" />
     <Content Include="package.json" />
@@ -77,8 +80,14 @@
     <Folder Include="public\assets\dist\" />
     <Folder Include="public\assets\dist\css\" />
     <Folder Include="public\assets\dist\js\" />
+    <Folder Include="routes\api\" />
     <Folder Include="sessions\" />
-    <Folder Include="sessions\types\" />
+    <Folder Include="sessions\entidades\" />
+    <Folder Include="sessions\mongodb\" />
+    <Folder Include="sessions\mongodb\modelos\" />
+    <Folder Include="sessions\mongodb\schemas\" />
+    <Folder Include="sessions\repositorios\" />
+    <Folder Include="sessions\repositorios\impl\" />
     <Folder Include="websockets\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
@@ -106,9 +115,13 @@
     <TypeScriptCompile Include="ecommerce\repositorios\impl\FakerProductosRepository.ts" />
     <TypeScriptCompile Include="knexdb\KnexDbContext.ts" />
     <TypeScriptCompile Include="routes\UsersRouter.ts" />
+    <TypeScriptCompile Include="sessions\AuthManager.ts" />
+    <TypeScriptCompile Include="sessions\mongodb\schemas\UserMongoSchema.ts" />
+    <TypeScriptCompile Include="sessions\mongodb\SessionMongoDbContext.ts" />
+    <TypeScriptCompile Include="sessions\repositorios\impl\MongoUserRepository.ts" />
+    <TypeScriptCompile Include="sessions\repositorios\IUserRepository.ts" />
     <TypeScriptCompile Include="sessions\SessionManager.ts" />
-    <TypeScriptCompile Include="sessions\types\SessionCheat.ts" />
-    <TypeScriptCompile Include="sessions\IUserData.ts" />
+    <TypeScriptCompile Include="sessions\entidades\IUser.ts" />
     <TypeScriptCompile Include="websockets\ChatServer.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -134,10 +147,10 @@
     <TypeScriptCompile Include="public\javascripts\ecommerce_cli.js">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="routes\ProductosRouter.ts">
+    <TypeScriptCompile Include="routes\api\APIProductosRouter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="routes\VistasRouter.ts">
+    <TypeScriptCompile Include="routes\IndexRouter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
   </ItemGroup>

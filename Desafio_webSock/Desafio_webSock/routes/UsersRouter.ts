@@ -1,39 +1,28 @@
-import * as express  from 'express';
-import { IUserData } from '../sessions/IUserData';
-
-export function crearUserRouter() : express.Router
+import * as express  from 'express'; 
+import { IAuthManager } from '../sessions/AuthManager';
+ 
+export function crearUserRouter(auth: IAuthManager) : express.Router
 {
     const router = express.Router();
 
+    const redirectIfAuthed = auth.authGuard({successRedirect:"/"});
 
+    router.use(express.static('public'));
     router.use(express.urlencoded({ extended: true }));
 
-    router.post("/login", (req, res) => {
-
-        console.log(req.body);
-        if (req.body.nombre) {
-            
-            req.session.userData = {
-                nombre: req.body.nombre 
-            };
-
-            res.redirect("/");
-        }
-        else {
-            res.redirect("/login");
-        }
-
-
+    //login
+    router.get("/login", redirectIfAuthed, (req, res ) => { 
+        res.render("login", { errm: req.query.errm });
     });
 
-    router.get("/logout",  (req, res) => {
-          req.session.destroy((err) => {
-              if (err)
-                  console.log(err);
-              else
-                  res.redirect("/");
-        });
-    })
+    //register
+    router.get("/register", redirectIfAuthed, (req, res) => {
+        res.render("register", { errm: req.query.errm });
+    });
+
+    router.post("/login", auth.authenticate({ successRedirect: "/", failureRedirect:`./login?errm=${encodeURI("Usuario o clave invalido")}`}));    
+    router.post("/register", redirectIfAuthed, auth.register({successRedirect:"/", failureRedirect:"./register"}));
+    router.post("/logout", auth.logOut({ successRedirect: "./login" }));
 
     return router;
 }

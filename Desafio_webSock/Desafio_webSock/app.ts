@@ -2,8 +2,8 @@ import * as express from 'express';
 import * as handlebars from 'express-handlebars';
 import knex, { Knex } from 'knex';
 import * as http from 'node:http';
-import { crearProductosRouter } from './routes/ProductosRouter';
-import { crearVistasRouter } from './routes/VistasRouter';
+import { crearAPIProductosRouter } from './routes/api/APIProductosRouter';
+import { crearIndexRouter } from './routes/IndexRouter';
 import { crearUserRouter } from './routes/UsersRouter';
  
 import { ChatMongoDBContext } from './chat/mongodb/ChatMongoDBContext';
@@ -15,10 +15,17 @@ import { IProductosRepository } from './ecommerce/repositorios/IProductosReposit
 import { ChatServer } from './websockets/ChatServer';
 import { ProductoListServer } from './websockets/ProductoListServer';
 
-import { SessionManager } from './sessions/SessionManager';
+import { sessionManager } from './sessions/SessionManager';
+import { IAuthManager, LocalAuthManager } from './sessions/AuthManager';
+import { MongoUserRepository } from './sessions/repositorios/impl/MongoUserRepository';
+import { SessionMongoDBContext } from './sessions/mongodb/SessionMongoDbContext';
+
+const Config = require("./Config.json");
+
+const CONFIGS_MONGO_URL: string = Config.mongo_url;
+ 
 
 
-const CONFIGS_MONGO_URL: string = "";
 
 const Main = async () =>
 {
@@ -35,7 +42,8 @@ const Main = async () =>
     };
 
   
-    SessionManager.init(CONFIGS_MONGO_URL);
+   
+
     const ecommerceDBConn = new EcommerceKnexDbContext(knex(ecommerceDbConfigs));
     const chatDBConn = new ChatMongoDBContext(CONFIGS_MONGO_URL);
    
@@ -43,18 +51,23 @@ const Main = async () =>
 
     const prodRepo: IProductosRepository =  new KnexProductosRepository(ecommerceDBConn);
     const chatRepo: IMensajesRepository = new MongoMensajesRepository(chatDBConn);
+    const authManager: LocalAuthManager = new LocalAuthManager(new MongoUserRepository(new SessionMongoDBContext(CONFIGS_MONGO_URL)));
 
     const prodServer = new ProductoListServer(httpServer, prodRepo, { path: "/productos" });
     const chatServer = new ChatServer(httpServer, chatRepo, { path: "/chat" });
+    
 
+   
     app.engine("hbs", handlebars.engine());
     app.set("view engine", "hbs");
     app.set('views', `./views/hbs`);
-    app.use(SessionManager.middleware());
+
+    app.use(sessionManager(CONFIGS_MONGO_URL));
+    app.use(authManager.session());
     app.use(express.static('public'))
-    app.use("/users/", crearUserRouter());
-    app.use("/api/productos", crearProductosRouter(prodRepo));
-    app.use("/", crearVistasRouter(prodRepo));
+    app.use("/user", crearUserRouter(authManager));
+    app.use("/api/productos", crearAPIProductosRouter(prodRepo, authManager));
+    app.use("/", crearIndexRouter(prodRepo, authManager));
 
 
     httpServer.listen(port, () => {

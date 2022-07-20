@@ -70,30 +70,35 @@
 <body class="text-center">
 
     <main class="form-signin w-100 m-auto">
-        <form method="post" action="/user/login">
+        <form method="post" action="/user/register">
             <img class="mb-4" src="/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <h1 class="h3 mb-3 fw-normal">Registrarse</h1>
             {{#if errm}}
-            <h2>{{errm}}</h2>
+                <h2>{{errm}}</h2>
             {{/if}}
             <div class="form-floating">
                 <input type="text" class="form-control" id="floatingInput" placeholder="Juan Carlos" name="username">
-                <label for="floatingInput">Nombre</label>
+                <label for="floatingInput">Usuario</label>
             </div>
+
             <div class="form-floating">
                 <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
                 <label for="floatingPassword">Password</label>
             </div>
 
-            <!--  <div class="checkbox mb-3">
-          <label>
-              <input type="checkbox" value="remember-me"> Remember me
-          </label>
-      </div>
-      -->
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-            <p class="mt-5 mb-3 text-muted"><a href="/user/register">Registrarse</a></p>
+            <div class="form-floating">
+                <input type="email" class="form-control" id="floatingEmail" placeholder="hola@chau.com" name="email">
+                <label for="floatingEmail">Email</label>
+            </div>
+
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingName" placeholder="Juan Carlos" name="name">
+                <label for="floatingName">Nombre</label>
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2017-2022</p>
         </form>
-        </main>
-    </body>
-    </html>
+    </main>
+</body>
+</html>
