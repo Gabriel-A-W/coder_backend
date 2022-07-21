@@ -14,7 +14,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>037de38c-4945-49e9-a5fb-1bb3c8230640</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>app.js</StartupFile>
+    <StartupFile>app.ts</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -32,6 +32,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".env" />
     <Content Include="chat\mongodb\ChatMongoDBContext.ts">
       <SubType>Code</SubType>
     </Content>
@@ -114,6 +115,9 @@
     <TypeScriptCompile Include="ecommerce\knexdb\EcommerceKnexKnexDbContext.ts" />
     <TypeScriptCompile Include="ecommerce\repositorios\impl\FakerProductosRepository.ts" />
     <TypeScriptCompile Include="knexdb\KnexDbContext.ts" />
+    <TypeScriptCompile Include="RandomizerProcess.ts" />
+    <TypeScriptCompile Include="routes\api\RandomRouter.ts" />
+    <TypeScriptCompile Include="routes\ProcessInfoRouter.ts" />
     <TypeScriptCompile Include="routes\UsersRouter.ts" />
     <TypeScriptCompile Include="sessions\AuthManager.ts" />
     <TypeScriptCompile Include="sessions\mongodb\schemas\UserMongoSchema.ts" />
