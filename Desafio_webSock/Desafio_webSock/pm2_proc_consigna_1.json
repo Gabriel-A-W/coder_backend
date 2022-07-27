@@ -1,0 +1,17 @@
+{
+  "apps": [
+    {
+      "name": "Proceso 2",
+      "script": "app.js",
+      "watch": "true",
+      "args": "-p8080 -mFORK"
+    },
+    {
+      "name": "Proceso 1",
+      "script": "app.js",
+      "watch": "true",
+      "args": "-p8081 -mCLUSTER"
+    } 
+  ]
+}
+

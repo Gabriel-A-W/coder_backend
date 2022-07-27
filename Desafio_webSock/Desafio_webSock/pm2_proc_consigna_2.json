@@ -1,0 +1,35 @@
+{
+  "apps": [
+    {
+      "name": "Proceso 1",
+      "script": "app.js",
+      "watch": "true",
+      "args": "-p8080 -mFORK"
+    },
+    {
+      "name": "Proceso 2",
+      "script": "app.js",
+      "watch": "true",
+      "args": "-p8082 -mFORK"
+    },
+    {
+      "name": "Proceso 3",
+      "script": "app.js",
+      "watch": "true",
+      "args": "-p8083 -mFORK"
+    },
+    {
+      "name": "Proceso 4",
+      "script": "app.js",
+      "watch": "true",
+      "args": "-p8084 -mFORK"
+    },
+    {
+      "name": "Proceso 5",
+      "script": "app.js",
+      "watch": "true",
+      "args": "-p8085 -mFORK"
+    }
+  ]
+}
+

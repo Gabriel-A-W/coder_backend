@@ -4,6 +4,8 @@ import knex, { Knex } from 'knex';
 import * as http from 'node:http';
 import  yargs  = require("yargs");
 import { hideBin } from 'yargs/helpers';
+import cluster from 'cluster';
+import * as os from 'os';
 
 import { ChatMongoDBContext } from './chat/mongodb/ChatMongoDBContext';
 import { IMensajesRepository } from './chat/repositorios/IMensajesRepository';
@@ -23,7 +25,9 @@ import { sessionManager } from './sessions/SessionManager';
 import { ChatServer } from './websockets/ChatServer';
 import { ProductoListServer } from './websockets/ProductoListServer';
 
+import dotenv = require("dotenv");
 
+dotenv.config();
 const CONFIGS_MONGO_URL: string = process.env.MONGO_URL;
  
 
@@ -69,13 +73,13 @@ const Main = async (args) =>
     app.use(express.static('public'))
     app.use("/user", crearUserRouter(authManager));
     app.use("/api/productos", crearAPIProductosRouter(prodRepo, authManager));
-    app.use("/api/random", crearRandomRouter());
+    app.use("/api/random", crearRandomRouter(port));
     app.use("/info", crearProcessInfoRouter());
     app.use("/", crearIndexRouter(prodRepo, authManager));
     
 
     httpServer.listen(port, () => {
-        console.log(`Puerto: ${port}`);
+        console.log(`PID: ${process.pid} Puerto: ${port}`);
     });
 
 }
@@ -87,7 +91,16 @@ const argv = yargs(hideBin(process.argv)).option("puerto", {
     alias: "p",
     type: "number",
     description: "El puerto de escucha del servidor"
-}).parse(); 
+}).option("modo", { alias: "m", type: "string", choices: ["FORK", "CLUSTER"],  default:"FORK" }).parse(); 
 
- 
-Main(argv);
+
+if (argv["modo"] === "CLUSTER" && cluster.isPrimary) {
+
+    for (var i = 0; i < os.cpus().length; i++) {
+        cluster.fork();
+    }
+}
+else
+{
+    Main(argv);
+}

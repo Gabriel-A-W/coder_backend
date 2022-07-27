@@ -5,7 +5,7 @@ import express = require("express")
 
 
 
-export const crearRandomRouter = () => {
+export const crearRandomRouter = (puerto) => {
 
     const router: Router = express.Router()
     router.use(express.json());
@@ -13,7 +13,7 @@ export const crearRandomRouter = () => {
     
     router.get("/", (req, res) => {
         fork("./RandomizerProcess.js", [req.query["cant"] as string ?? "100000000"]).on("message", (msj, sendHandle) => {
-            res.json(msj);
+            res.json({ rta: msj, port: puerto });
         });
     });
 
