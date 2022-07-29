@@ -6,6 +6,8 @@ import  yargs  = require("yargs");
 import { hideBin } from 'yargs/helpers';
 import cluster from 'cluster';
 import * as os from 'os';
+import winston = require('winston');
+
 
 import { ChatMongoDBContext } from './chat/mongodb/ChatMongoDBContext';
 import { IMensajesRepository } from './chat/repositorios/IMensajesRepository';
@@ -25,7 +27,7 @@ import { sessionManager } from './sessions/SessionManager';
 import { ChatServer } from './websockets/ChatServer';
 import { ProductoListServer } from './websockets/ProductoListServer';
 
-import dotenv = require("dotenv");
+import dotenv = require('dotenv'); 
 
 dotenv.config();
 const CONFIGS_MONGO_URL: string = process.env.MONGO_URL;
@@ -61,21 +63,55 @@ const Main = async (args) =>
 
     const prodServer = new ProductoListServer(httpServer, prodRepo, { path: "/productos" });
     const chatServer = new ChatServer(httpServer, chatRepo, { path: "/chat" });
-    
 
+    const logger = winston.createLogger({
+        level: argv["loglevel"],
+        format: winston.format.combine( 
+            winston.format.timestamp(),
+            winston.format.prettyPrint()
+        ),
+        transports: [
+            new winston.transports.Console({ level: "info"}),
+            new winston.transports.File({ level: "warn", filename: "warn.log"}),
+            new winston.transports.File({ level: "error", filename:"err.log"})
+        ]
+    });
+
+     
    
     app.engine("hbs", handlebars.engine());
     app.set("view engine", "hbs");
     app.set('views', `./views/hbs`);
 
+    
     app.use(sessionManager(CONFIGS_MONGO_URL));
     app.use(authManager.session());
     app.use(express.static('public'))
+    app.use((req, res, next) => {
+        logger.info("Request", { method: req.method, originalUrl: req.originalUrl });
+        next();
+    });
+
+    app.get("/error", (req, res) => {
+        throw new Error("hola");
+    });
+
     app.use("/user", crearUserRouter(authManager));
     app.use("/api/productos", crearAPIProductosRouter(prodRepo, authManager));
     app.use("/api/random", crearRandomRouter(port));
     app.use("/info", crearProcessInfoRouter());
+    
     app.use("/", crearIndexRouter(prodRepo, authManager));
+
+    app.use((req, res, next) => {
+        logger.warn("Invalid Request", { method: req.method, originalUrl: req.originalUrl });
+        res.status(404).send();
+    });
+
+    app.use((err, req, res, next) => {
+        logger.error("Error no manejado", { method: req.method, originalUrl: req.originalUrl, error:err } );
+        next();
+    });
     
 
     httpServer.listen(port, () => {
@@ -91,7 +127,23 @@ const argv = yargs(hideBin(process.argv)).option("puerto", {
     alias: "p",
     type: "number",
     description: "El puerto de escucha del servidor"
-}).option("modo", { alias: "m", type: "string", choices: ["FORK", "CLUSTER"],  default:"FORK" }).parse(); 
+}).option("modo", {
+    alias: "m",
+    type: "string",
+    choices: ["FORK", "CLUSTER"],
+    default: "FORK"
+}).option("loglevel", {
+    alias: "l",
+    type: "string",
+    choices: ["error",
+        "warn",
+        "info",
+        "http",
+        "verbose",
+        "debug",
+        "silly"],
+    default: "info"
+}).parse();
 
 
 if (argv["modo"] === "CLUSTER" && cluster.isPrimary) {

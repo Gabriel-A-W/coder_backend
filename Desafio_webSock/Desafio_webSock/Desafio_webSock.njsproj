@@ -37,6 +37,12 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Config.json" />
+    <Content Include="profiling\artillery_info_con_console.out" />
+    <Content Include="profiling\artillery_info_sin_console.out" />
+    <Content Include="profiling\node_prof_con_console_isolate-000001B8D03FD550-19956-v8.log" />
+    <Content Include="profiling\node_prof_process_con_console.out" />
+    <Content Include="profiling\node_prof_process_sin_console.out" />
+    <Content Include="profiling\node_prof_sin_console_isolate-0000016F21D992D0-21812-v8.log" />
     <Content Include="public\assets\brand\bootstrap-logo-white.svg" />
     <Content Include="public\assets\brand\bootstrap-logo.svg" />
     <Content Include="public\assets\dist\css\bootstrap.min.css" />
@@ -76,6 +82,7 @@
     <Folder Include="ecommerce\repositorios\impl\" />
     <Folder Include="ecommerce\knexdb\" />
     <Folder Include="knexdb\" />
+    <Folder Include="profiling\" />
     <Folder Include="public\assets\" />
     <Folder Include="public\assets\brand\" />
     <Folder Include="public\assets\dist\" />

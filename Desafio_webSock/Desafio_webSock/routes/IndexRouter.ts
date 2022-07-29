@@ -6,17 +6,16 @@ import { IAuthManager } from '../sessions/AuthManager';
 export function crearIndexRouter(contenedor : IProductosRepository, auth : IAuthManager) : express.Router
 {
     const router = express.Router();
-
+    const authGuard = auth.authGuard({ failureRedirect: "/user/login" });
     router.use(express.static('public'));
     router.use(express.urlencoded({ extended: true }));
-    router.use(auth.authGuard({ failureRedirect: "/user/login" }));
-
-    router.get("/", (req, res) => {
+     
+    router.get("/", authGuard, (req, res) => {
         console.log(req.user);
         res.render("index", { userData: req.user });
     });
 
-    router.post("/", async (req, res) => {
+    router.post("/", authGuard, async (req, res) => {
         await contenedor.add(req.body);
         res.render("index", { userData: req.user});
     });
